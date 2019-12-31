@@ -1,0 +1,148 @@
+swagger: "2.0"
+info:
+  description: "This is Hatetris API server."
+  version: "1.0.0"
+  title: "Hatetris API"
+  termsOfService: "http://hatetris.io/terms/"
+  contact:
+    email: "mathphd@ya.ru"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: "/api/rest/v1"
+externalDocs:
+  description: "Find out more about Hatetris"
+  url: "http://hatetris.io"
+tags:
+  - name: "game"
+    description: "Everything about Game"
+    externalDocs:
+      description: "Find out more"
+      url: "http://hatetris.io"
+schemes:
+  - "http"
+# securityDefinitions:
+#   scrurity_token:
+#     type: "apiKey"
+#     name: "token"
+#     in: "header"
+paths:
+  /game:
+    post:
+      tags:
+        - "game"
+      summary: "Create game instance"
+      description: "Create game instance"
+      operationId: "createGameInstance"
+      produces:
+        # - "application/xml"
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/NewGame"
+        404:
+          description: "Not found"
+  /game/{id}:
+    get:
+      tags:
+        - "game"
+      summary: "Get game status"
+      description: "Get game status"
+      operationId: "getGameStatus"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the game"
+          required: true
+          type: "string"
+      produces:
+        # - "application/xml"
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GameState"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Not found"
+    put:
+      tags:
+        - "game"
+      summary: "Do Action in the game"
+      description: "Do Action in the game"
+      operationId: "actionInGame"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the game"
+          required: true
+          type: "string"
+        - name: "action"
+          in: "query"
+          description: "Action key"
+          required: true
+          type: "string"
+          enum:
+            - "U"
+            - "D"
+            - "L"
+            - "R"
+      produces:
+        # - "application/xml"
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GameState"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Not found"
+definitions:
+  GameState:
+    type: "object"
+    required:
+      - "mode"
+      - "replay"
+      - "well"
+      - "score"
+      - "piece"
+    properties:
+      mode:
+        type: "string"
+      replay:
+        type: ["string", "null"]
+      well:
+        type: "array"
+        items:
+          type: "number"
+      score:
+        type: "number"
+      piece:
+        type: "object"
+        properties:
+          id:
+            type: "string"
+          x:
+            type: "number"
+          y:
+            type: "number"
+          o:
+            type: "number"
+    xml:
+      name: "Game"
+  NewGame:
+    type: "object"
+    required:
+      - "id"
+    properties:
+      id:
+        type: "string"
+    xml:
+      name: "Game"
+

@@ -1,0 +1,32 @@
+{
+  "name": "hatetris",
+  "version": "1.0.0",
+  "description": "hatetris rest api",
+  "main": "src/index.mjs",
+  "scripts": {
+    "start": "node --experimental-modules src/index.mjs",
+    "lint": "npx eslint --ext=mjs src",
+    "dev": "watchexec -r -c -e mjs,json,yml -i node_modules npm run test",
+    "test": "npm run lint && npm run start"
+  },
+  "keywords": [
+    "tetris",
+    "hatetris"
+  ],
+  "author": "mathphd@ya.ru",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  },
+  "dependencies": {
+    "base2048": "0.0.2052",
+    "base65536": "^2.0.2",
+    "swagger2": "2.0.0",
+    "swagger2-koa": "2.0.0"
+  }
+}
